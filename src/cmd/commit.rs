@@ -5,6 +5,9 @@ use crate::{
 };
 use regex::Regex;
 use std::process::{self, ExitStatus};
+extern crate skim;
+use skim::prelude::*;
+use std::io::Cursor;
 
 fn read_single_line(
     theme: &impl dialoguer::theme::Theme,
@@ -154,12 +157,37 @@ impl Dialog {
         selected: &str,
         types: &[Type],
     ) -> Result<String, Error> {
-        let index = dialoguer::Select::with_theme(theme)
-            .with_prompt("type")
-            .items(types)
-            .default(types.iter().position(|t| t.r#type == selected).unwrap_or(0))
-            .interact()?;
-        Ok(r#types[index].r#type.clone())
+        let mut input = String::new();
+        for c in types {
+            input.push_str(&c.r#type);
+            input.push_str("\n");
+        }
+
+        // `SkimItemReader` is a helper to turn any `BufRead` into a stream of `SkimItem`
+        // `SkimItem` was implemented for `AsRef<str>` by default
+        let item_reader = SkimItemReader::default();
+        let items = item_reader.of_bufread(Cursor::new(input));
+
+        let options = SkimOptionsBuilder::default()
+            .height(Some("25%"))
+            .multi(false)
+            .build()
+            .unwrap();
+        // `run_with` would read and show items from the stream
+        let selected_items = Skim::run_with(&options, Some(items))
+            .map(|out| out.selected_items)
+            .unwrap_or_else(|| Vec::new());
+
+        for item in selected_items.iter() {
+            // print!("{}{}", item.output(), "\n");
+            let _: String = dialoguer::Input::with_theme(theme)
+                .with_prompt("type")
+                .with_initial_text(item.output().to_string())
+                .allow_empty(true)
+                .interact()?;
+            return Ok(item.output().to_string());
+        }
+        Ok("".to_string())
     }
 
     // Prompt all
