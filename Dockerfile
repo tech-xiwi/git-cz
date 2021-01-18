@@ -8,7 +8,7 @@ RUN cargo --version
 RUN cargo build --release
 
 FROM alpine as base
-COPY --from=builder /tmp/target/release/convco /usr/bin/convco
+COPY --from=builder /tmp/target/release/git-cz /usr/bin/git-cz
 
-ENTRYPOINT [ "convco" ]
+ENTRYPOINT [ "git-cz" ]
 CMD [ "check" ]

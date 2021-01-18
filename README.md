@@ -1,31 +1,31 @@
-# Convco
+# Git-commitizen
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/convco/convco/Build%20binary)
-[![Crates.io](https://img.shields.io/crates/v/convco)](https://crates.io/crates/convco)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/git-cz/git-cz/Build%20binary)
+[![Crates.io](https://img.shields.io/crates/v/git-cz)](https://crates.io/crates/git-cz)
 
 A Conventional commit cli.
 
-`convco` gives tools to work with [Conventional Commits][1].
+`git-cz` gives tools to work with [Conventional Commits][1].
 
 The tool is still in early development.
 It provides already the following commands:
 
-- `convco changelog`: Create a changelog file.
-- `convco check`: Checks if a range of commits is following the convention.
-- `convco commit`: Helps to make conventional commits.
-- `convco version`: Finds out the current or next version.
+- `git-cz changelog`: Create a changelog file.
+- `git-cz check`: Checks if a range of commits is following the convention.
+- `git-cz commit`: Helps to make conventional commits.
+- `git-cz version`: Finds out the current or next version.
 
 ## Installation
 
-`cargo install convco`
+`cargo install --git https://github.com/ttys3/git-commitizen.git`
 
 ## Docker usage
 
 ```shell script
-# build the convco image
-docker build -t convco .
+# build the git-cz image
+docker build -t git-cz .
 # run it on any codebase
-docker run -v "$PWD:/tmp" --workdir /tmp --rm convco
+docker run -v "$PWD:/tmp" --workdir /tmp --rm git-cz
 ```
 
 ### Use it in .gitlab-ci.yml
@@ -33,10 +33,10 @@ docker run -v "$PWD:/tmp" --workdir /tmp --rm convco
 If you've created an image and pushed it into your private registry
 
 ```yaml
-convco:check:
+git-cz:check:
   stage: test
   image:
-    name: convco/convco:latest
+    name: git-cz/git-cz:latest
   script:
     - check
 ```
@@ -50,7 +50,7 @@ It is inspired by [conventional changelog][2].
 Configuration follows the [conventional-changelog-config-spec][3]
 
 ```sh
-convco changelog > CHANGELOG.md
+git-cz changelog > CHANGELOG.md
 ```
 
 ### Check
@@ -61,7 +61,7 @@ It returns a non zero exit code if some commits are not conventional.
 This is useful in a pre-push hook.
 
 ```sh
-convco check $remote_sha..$local_sha
+git-cz check $remote_sha..$local_sha
 ```
 
 ### Commit
@@ -71,7 +71,7 @@ A scope, description, body, breaking change and issues will be prompted.
 
 ```sh
 # commit a new feature and then run git commit with the interactive patch switch
-convco commit --feat -- --patch
+git-cz commit --feat -- --patch
 ```
 
 ### Version
@@ -82,13 +82,13 @@ Conventional commits are used to calculate the next major, minor or patch.
 If needed one can provide `--major`, `--minor` or `--patch` to overrule the convention.
 
 ```sh
-convco version --bump
+git-cz version --bump
 ```
 
 It is useful to use it with release tools, such as [`cargo-release`](https://crates.io/crates/cargo-release):
 
 ```sh
-cargo release $(convco version --bump)
+cargo release $(git-cz version --bump)
 ```
 
 #### TODO

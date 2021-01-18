@@ -11,9 +11,9 @@ fn main() {
     fs::create_dir_all(out_dir).unwrap();
 
     // Generate completions for all shells available in `clap`.
-    app.gen_completions("convco", Shell::Bash, out_dir);
-    app.gen_completions("convco", Shell::Fish, out_dir);
-    app.gen_completions("convco", Shell::Zsh, out_dir);
-    app.gen_completions("convco", Shell::Elvish, out_dir);
-    app.gen_completions("convco", Shell::PowerShell, out_dir);
+    app.gen_completions("git-cz", Shell::Bash, out_dir);
+    app.gen_completions("git-cz", Shell::Fish, out_dir);
+    app.gen_completions("git-cz", Shell::Zsh, out_dir);
+    app.gen_completions("git-cz", Shell::Elvish, out_dir);
+    app.gen_completions("git-cz", Shell::PowerShell, out_dir);
 }

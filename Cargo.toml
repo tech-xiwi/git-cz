@@ -1,12 +1,12 @@
 [package]
-name = "convco"
+name = "git-cz"
 version = "0.3.5"
-description = "Conventional commit tools"
-keywords = ["conventional", "commit", "changelog", "semantic", "versioning"]
+description = "Git conventional commit tools written in Rust"
+keywords = ["git", "conventional", "commit", "changelog", "semantic", "versioning"]
 categories = ["development-tools::build-utils"]
 readme = "README.md"
-homepage = "https://convco.github.io"
-repository = "https://github.com/convco/convco.git"
+homepage = "https://git-cz.github.io"
+repository = "https://github.com/ttys3/git-commitizen.git"
 license = "MIT"
 authors = ["Hannes De Valkeneer <hannes@de-valkeneer.be>"]
 edition = "2018"
@@ -35,15 +35,15 @@ structopt = "0.3.16"
 [package.metadata.deb]
 depends = ""
 extended-description = """\
-Conventional commit tools. \
+Git conventional commit tools written in Rust. \
 Create a changelog. \
 Check if commits follow the convention. \
 Calculate the next version based on the conventional commits."""
 assets = [
     # bin
-    ["target/release/convco", "/usr/local/bin/", "755"],
+    ["target/release/git-cz", "/usr/local/bin/", "755"],
     # completions
-    ["target/completions/convco.bash", "/usr/share/bash-completion/completions/", "644"],
-    ["target/completions/_convco", "/usr/share/zsh/vendor-completions/", "644"],
-    ["target/completions/convco.fish", "/usr/share/fish/completions/", "644"],
+    ["target/completions/git-cz.bash", "/usr/share/bash-completion/completions/", "644"],
+    ["target/completions/_git-cz", "/usr/share/zsh/vendor-completions/", "644"],
+    ["target/completions/git-cz.fish", "/usr/share/fish/completions/", "644"],
 ]
