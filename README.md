@@ -1,6 +1,8 @@
-# Git-commitizen
+# Git-cz
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/git-cz/git-cz/Build%20binary)
+`git-cz` is short for `git-commitizen`
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ttys3/git-cz/Build%20binary)
 [![Crates.io](https://img.shields.io/crates/v/git-cz)](https://crates.io/crates/git-cz)
 
 A Conventional commit cli.
@@ -20,7 +22,7 @@ It provides already the following commands:
 
 ### build from sourceo
 
-`cargo install --git https://github.com/ttys3/git-commitizen.git`
+`cargo install --git https://github.com/ttys3/git-cz.git`
 
 ### download pre-build binary
 
@@ -59,7 +61,7 @@ If you've created an image and pushed it into your private registry
 git-cz:check:
   stage: test
   image:
-    name: git-cz/git-cz:latest
+    name: ttys3/git-cz:latest
   script:
     - check
 ```

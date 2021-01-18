@@ -1,12 +1,12 @@
 [package]
 name = "git-cz"
-version = "0.4.0"
+version = "0.4.1"
 description = "Git conventional commit tools written in Rust"
 keywords = ["git", "conventional", "commit", "changelog", "semantic", "versioning"]
 categories = ["development-tools::build-utils"]
 readme = "README.md"
 homepage = "https://git-cz.github.io"
-repository = "https://github.com/ttys3/git-commitizen.git"
+repository = "https://github.com/ttys3/git-cz.git"
 license = "MIT"
 authors = ["Hannes De Valkeneer <hannes@de-valkeneer.be>"]
 edition = "2018"
