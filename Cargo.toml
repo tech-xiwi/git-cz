@@ -1,6 +1,6 @@
 [package]
 name = "git-cz"
-version = "0.4.1"
+version = "0.4.2"
 description = "Git conventional commit tools written in Rust"
 keywords = ["git", "conventional", "commit", "changelog", "semantic", "versioning"]
 categories = ["development-tools::build-utils"]
