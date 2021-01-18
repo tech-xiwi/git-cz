@@ -157,6 +157,7 @@ impl Dialog {
         selected: &str,
         types: &[Type],
     ) -> Result<String, Error> {
+
         let mut input = String::new();
         for c in types {
             input.push_str(&c.r#type);
@@ -185,18 +186,22 @@ impl Dialog {
             .map(|out| out.selected_items)
             .unwrap_or_else(|| Vec::new());
 
+        let mut sel: String = types[0].r#type.to_string();
         for item in selected_items.iter() {
-            let sel = item.output().to_string();
-
-            let term: &console::Term = &console::Term::stderr();
-            let mut buf = String::new();
-            let _ = theme.format_input_prompt_selection(&mut buf, "type", &sel);
-            term.write_line(buf.as_str())?;
-            term.clear_line()?;
-
-            return Ok(sel);
+            sel = item.output().to_string();
+            break;
         }
-        Ok(selected.to_string())
+        if selected_items.len() == 0 && selected.len() > 0 {
+            sel = selected.to_string();
+        }
+
+        let term: &console::Term = &console::Term::stderr();
+        let mut buf = String::new();
+        let _ = theme.format_input_prompt_selection(&mut buf, "type", &sel);
+        term.write_line(buf.as_str())?;
+        term.clear_line()?;
+
+        return Ok(sel);
     }
 
     // Prompt all
