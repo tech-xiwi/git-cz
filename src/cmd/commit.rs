@@ -18,7 +18,7 @@ fn read_single_line(
         .with_prompt(prompt)
         .default(default.to_string())
         .allow_empty(true)
-        .interact()?)
+        .interact_text()?)
 }
 
 fn make_commit_message(
@@ -76,9 +76,9 @@ fn read_scope(
     default: &str,
     scope_regex: Regex,
 ) -> Result<String, Error> {
-    let result: String = dialoguer::Input::with_theme(theme)
+    let result: String = dialoguer::Input::<String>::with_theme(theme)
         .with_prompt("scope")
-        .validate_with(move |input: &str| match scope_regex.is_match(input) {
+        .validate_with(move |input: &String| match scope_regex.is_match(input) {
             true => Ok(()),
             false => {
                 if input.is_empty() {
@@ -90,7 +90,7 @@ fn read_scope(
         })
         .default(default.to_string())
         .allow_empty(true)
-        .interact()?;
+        .interact_text()?;
     Ok(result)
 }
 
@@ -98,9 +98,9 @@ fn read_description(
     theme: &impl dialoguer::theme::Theme,
     default: String,
 ) -> Result<String, Error> {
-    let result: String = dialoguer::Input::with_theme(theme)
+    let result: String = dialoguer::Input::<String>::with_theme(theme)
         .with_prompt("description")
-        .validate_with(|input: &str| {
+        .validate_with(|input: &String| {
             if input.len() < 10 {
                 Err("Description needs a length of at least 10 characters")
             } else {
@@ -109,7 +109,7 @@ fn read_description(
         })
         .default(default)
         .allow_empty(false)
-        .interact()?;
+        .interact_text()?;
     Ok(result)
 }
 
