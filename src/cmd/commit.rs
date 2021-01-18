@@ -168,9 +168,16 @@ impl Dialog {
         let item_reader = SkimItemReader::default();
         let items = item_reader.of_bufread(Cursor::new(input));
 
+        // use dialoguer::theme::ColorfulTheme;
+        // let mut header : String = "type: ".to_owned();
+        // header.push_str(ColorfulTheme::default().active_item_prefix.to_string().as_str());
+        // .header(Some(header.as_str()))
         let options = SkimOptionsBuilder::default()
+            .min_height(Some("10"))
+            .prompt(Some("? type () › "))
             .height(Some("25%"))
             .multi(false)
+            .reverse(true)
             .build()
             .unwrap();
         // `run_with` would read and show items from the stream
@@ -179,15 +186,17 @@ impl Dialog {
             .unwrap_or_else(|| Vec::new());
 
         for item in selected_items.iter() {
-            // print!("{}{}", item.output(), "\n");
-            let _: String = dialoguer::Input::with_theme(theme)
-                .with_prompt("type")
-                .with_initial_text(item.output().to_string())
-                .allow_empty(true)
-                .interact()?;
-            return Ok(item.output().to_string());
+            let sel = item.output().to_string();
+
+            let term: &console::Term = &console::Term::stderr();
+            let mut buf = String::new();
+            let _ = theme.format_input_prompt_selection(&mut buf, "type", &sel);
+            term.write_line(buf.as_str())?;
+            term.clear_line()?;
+
+            return Ok(sel);
         }
-        Ok("".to_string())
+        Ok(selected.to_string())
     }
 
     // Prompt all
