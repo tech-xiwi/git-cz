@@ -13,4 +13,7 @@ test:
 	cargo test
 
 deps/ubuntu:
-	sudo apt install musl-tools
+	sudo apt install -y musl-tools
+
+deps/fedora:
+	sudo dnf install -y musl-gcc
