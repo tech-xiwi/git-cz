@@ -17,7 +17,30 @@ It provides already the following commands:
 
 ## Installation
 
+
+### build from sourceo
+
 `cargo install --git https://github.com/ttys3/git-commitizen.git`
+
+### download pre-build binary
+
+download and put `git-cz` to your `PATH` env
+
+## Git alias
+
+recommand Git alias:
+
+```bash
+
+# use "git cc" for quick commit
+git config --global alias.cc 'cz commit'
+
+git config --global alias.ck 'cz check'
+
+git config --global alias.cl 'cz changelog'
+
+git config --global alias.cv 'cz version'
+```
 
 ## Docker usage
 
@@ -102,6 +125,27 @@ cargo release $(git-cz version --bump)
 - [ ] better documentation
 - [ ] better error handling
 
+
+### Thanks
+
+- fuzzy finder powered by [Skim](https://github.com/lotabout/skim#use-as-a-library)
+
+- original code by [convco](https://github.com/convco/convco)
+
 [1]: https://www.conventionalcommits.org/
 [2]: https://github.com/conventional-changelog/conventional-changelog
 [3]: https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.1.0/README.md
+
+
+### Ref
+
+<https://www.conventionalcommits.org/en/v1.0.0/>
+
+
+<https://github.com/commitizen/conventional-commit-types/blob/master/index.json>
+
+### Related Works
+
+<https://github.com/commitizen/cz-cli>
+
+<https://github.com/goreleaser/chglog>
