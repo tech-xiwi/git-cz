@@ -2,7 +2,7 @@
 name = "git-cz"
 version = "0.4.2"
 description = "Git conventional commit tools written in Rust"
-keywords = ["git", "conventional", "commit", "changelog", "semantic", "versioning"]
+keywords = ["git", "conventional", "commit", "changelog", "semantic"]
 categories = ["development-tools::build-utils"]
 readme = "README.md"
 homepage = "https://git-cz.github.io"
