@@ -14,11 +14,11 @@ jobs:
           - macos
         include:
           - os: ubuntu
-            binary: convco
+            binary: git-cz
           - os: macos
-            binary: convco
+            binary: git-cz
           - os: windows
-            binary: convco.exe
+            binary: git-cz.exe
     steps:
       - uses: actions/checkout@v2
 
@@ -43,14 +43,14 @@ jobs:
       - name: Upload ${{ matrix.os }} binary
         uses: actions/upload-artifact@v1
         with:
-          name: convco-${{ matrix.os }}
+          name: git-cz-${{ matrix.os }}
           path: target/release/${{ matrix.binary }}
 
       - name: Upload shell completions
         if: matrix.os == 'ubuntu'
         uses: actions/upload-artifact@v1
         with:
-          name: convco-shell-completions
+          name: git-cz-shell-completions
           path: target/completions
 
       - name: Debian package
@@ -63,5 +63,5 @@ jobs:
         if: matrix.os == 'ubuntu'
         uses: actions/upload-artifact@v1
         with:
-          name: convco-deb
+          name: git-cz-deb
           path: target/debian
