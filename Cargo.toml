@@ -26,7 +26,7 @@ structopt = "0.3.21"
 url = "2.2.0"
 dialoguer = "0.7.1"
 thiserror = "1.0.23"
-skim = "*"
+skim = "0.9.3"
 console = "0.14.0"
 
 [build-dependencies]
