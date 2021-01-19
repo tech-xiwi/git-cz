@@ -151,3 +151,5 @@ cargo release $(git-cz version --bump)
 <https://github.com/commitizen/cz-cli>
 
 <https://github.com/goreleaser/chglog>
+
+<https://github.com/ahmadawais/Emoji-Log>
