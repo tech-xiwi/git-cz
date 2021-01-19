@@ -14,10 +14,10 @@ jobs:
       - run: git show-ref
       - uses: actions-rs/install@v0.1
         with:
-          crate: convco
+          crate: git-cz
           version: latest
       - name: Validate commit messages
-        run: convco check ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+        run: git-cz check ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
