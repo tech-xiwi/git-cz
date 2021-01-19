@@ -10,15 +10,15 @@ jobs:
       matrix:
         os:
           - ubuntu
-          - windows
+          # - windows
           - macos
         include:
           - os: ubuntu
             binary: git-cz
           - os: macos
             binary: git-cz
-          - os: windows
-            binary: git-cz.exe
+          # - os: windows
+            # binary: git-cz.exe
     steps:
       - uses: actions/checkout@v2
 
