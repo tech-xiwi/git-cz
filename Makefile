@@ -1,6 +1,12 @@
-.PHONY: all static clean test
+.PHONY: all build run release static clean test
 
 all:
+	cargo build
+
+run:
+	cargo run
+
+release:
 	cargo build --release
 
 static:
