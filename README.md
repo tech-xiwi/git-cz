@@ -17,6 +17,8 @@ It provides already the following commands:
 - `git-cz commit`: Helps to make conventional commits.
 - `git-cz version`: Finds out the current or next version.
 
+![git-cz-screen-record.gif](assets/git-cz-screen-record.gif)
+
 ## Installation
 
 
