@@ -1,6 +1,6 @@
 [package]
 name = "git-cz"
-version = "0.4.4"
+version = "0.5.0"
 description = "Git conventional commit tools written in Rust"
 keywords = ["git", "conventional", "commit", "changelog", "semantic"]
 categories = ["development-tools::build-utils"]
@@ -24,10 +24,10 @@ serde = { version = "1.0.119", features = ["derive"] }
 serde_yaml = "0.8.15"
 structopt = "0.3.21"
 url = "2.2.0"
-dialoguer = "0.7.1"
+dialoguer = "0.7.2"
 thiserror = "1.0.23"
 skim = "0.9.3"
-console = "0.14.0"
+console = "0.15.0"
 
 [build-dependencies]
 structopt = "0.3.21"
@@ -48,5 +48,8 @@ assets = [
     ["target/completions/git-cz.fish", "/usr/share/fish/completions/", "644"],
 ]
 
-#[patch.crates-io]
-#dialoguer = { path = "../dialoguer" }
+[patch.crates-io]
+# dialoguer = { path = "../../lib/dialoguer" }
+# console = { path = "../../lib/console" }
+console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
+dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.7.2" }
