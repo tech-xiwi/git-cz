@@ -157,11 +157,10 @@ impl Dialog {
         selected: &str,
         types: &[Type],
     ) -> Result<String, Error> {
-
         let mut input = String::new();
         for c in types {
             input.push_str(&c.r#type);
-            input.push_str("\n");
+            input.push('\n');
         }
 
         // `SkimItemReader` is a helper to turn any `BufRead` into a stream of `SkimItem`
@@ -184,15 +183,19 @@ impl Dialog {
         // `run_with` would read and show items from the stream
         let selected_items = Skim::run_with(&options, Some(items))
             .map(|out| out.selected_items)
-            .unwrap_or_else(|| Vec::new());
+            .unwrap_or_default();
 
-        let mut sel: String = types[0].r#type.to_string();
-        for item in selected_items.iter() {
+        let mut sel: String = "".to_string();
+
+        if !selected_items.is_empty() {
+            let item = selected_items.get(0).unwrap();
             sel = item.output().to_string();
-            break;
-        }
-        if selected_items.len() == 0 && selected.len() > 0 {
+        } else if !selected.is_empty() {
             sel = selected.to_string();
+        }
+
+        if sel.is_empty() {
+            sel = types[0].r#type.to_string();
         }
 
         let term: &console::Term = &console::Term::stderr();
@@ -201,7 +204,7 @@ impl Dialog {
         term.write_line(buf.as_str())?;
         term.clear_line()?;
 
-        return Ok(sel);
+        Ok(sel)
     }
 
     // Prompt all
