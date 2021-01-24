@@ -1,4 +1,4 @@
-.PHONY: all build run release static clean test
+.PHONY: all build run release static clean test darwin
 
 all:
 	cargo build
@@ -8,6 +8,14 @@ run:
 
 release:
 	cargo build --release
+
+
+darwin: export PKG_CONFIG_ALLOW_CROSS=1
+darwin: export CC=o64-clang
+darwin: export CXX=o64-clang++
+darwin:
+	PATH=/usr/local/darwin-ndk-x86_64/bin:$$PATH \
+		 cargo build --target=x86_64-apple-darwin --release
 
 static:
 	cargo build --release --target x86_64-unknown-linux-musl
