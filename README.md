@@ -48,7 +48,7 @@ git config --global alias.cv 'cz version'
 
 ## Docker usage
 
-```shell script
+```bash
 # build the git-cz image
 docker build -t git-cz .
 # run it on any codebase
@@ -63,7 +63,7 @@ If you've created an image and pushed it into your private registry
 git-cz:check:
   stage: test
   image:
-    name: ttys3/git-cz:latest
+    name: 80x86/git-cz:latest
   script:
     - check
 ```
@@ -76,7 +76,7 @@ A changelog can be generated using the conventional commits.
 It is inspired by [conventional changelog][2].
 Configuration follows the [conventional-changelog-config-spec][3]
 
-```sh
+```bash
 git-cz changelog > CHANGELOG.md
 ```
 
@@ -87,7 +87,7 @@ Check a range of revisions for compliance.
 It returns a non zero exit code if some commits are not conventional.
 This is useful in a pre-push hook.
 
-```sh
+```bash
 git-cz check $remote_sha..$local_sha
 ```
 
@@ -96,7 +96,7 @@ git-cz check $remote_sha..$local_sha
 Helps to make conventional commits.
 A scope, description, body, breaking change and issues will be prompted.
 
-```sh
+```bash
 # commit a new feature and then run git commit with the interactive patch switch
 git-cz commit --feat -- --patch
 ```
@@ -108,13 +108,13 @@ When `--bump` is provided, the next version will be printed out.
 Conventional commits are used to calculate the next major, minor or patch.
 If needed one can provide `--major`, `--minor` or `--patch` to overrule the convention.
 
-```sh
+```bash
 git-cz version --bump
 ```
 
 It is useful to use it with release tools, such as [`cargo-release`](https://crates.io/crates/cargo-release):
 
-```sh
+```bash
 cargo release $(git-cz version --bump)
 ```
 
