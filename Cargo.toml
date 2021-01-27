@@ -24,7 +24,7 @@ serde = { version = "1.0.119", features = ["derive"] }
 serde_yaml = "0.8.15"
 structopt = "0.3.21"
 url = "2.2.0"
-dialoguer = "0.7.2"
+dialoguer = "0.7.3"
 thiserror = "1.0.23"
 skim = "0.9.3"
 console = "0.15.0"
@@ -52,4 +52,4 @@ assets = [
 # dialoguer = { path = "../../lib/dialoguer" }
 # console = { path = "../../lib/console" }
 console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
-dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.7.2" }
+dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.7.3" }
