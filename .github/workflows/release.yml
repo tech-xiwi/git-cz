@@ -1,6 +1,9 @@
 name: Build binary
 # This workflow is triggered on pushes to the repository.
-on: workflow_dispatch
+on:
+  push:
+    tags:
+      - v*
 
 jobs:
   build:
@@ -41,14 +44,14 @@ jobs:
           args: --release
 
       - name: Upload ${{ matrix.os }} binary
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: git-cz-${{ matrix.os }}
           path: target/release/${{ matrix.binary }}
 
       - name: Upload shell completions
         if: matrix.os == 'ubuntu'
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: git-cz-shell-completions
           path: target/completions
@@ -61,7 +64,7 @@ jobs:
 
       - name: Upload Debian package
         if: matrix.os == 'ubuntu'
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: git-cz-deb
           path: target/debian

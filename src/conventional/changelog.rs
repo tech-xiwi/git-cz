@@ -1,9 +1,11 @@
-use super::config::Config;
-use crate::Error;
+use std::{io, path::Path};
+
 use chrono::NaiveDate;
 use handlebars::{no_escape, Handlebars};
 use serde::Serialize;
-use std::{io, path::Path};
+
+use super::config::Config;
+use crate::Error;
 
 const TEMPLATE: &str = include_str!("changelog/template.hbs");
 const HEADER: &str = include_str!("changelog/header.hbs");
@@ -38,6 +40,7 @@ pub(crate) struct CommitContext<'a> {
     pub(crate) hash: String,
     pub(crate) date: NaiveDate,
     pub(crate) subject: String,
+    pub(crate) body: Option<String>,
     pub(crate) scope: Option<String>,
     pub(crate) short_hash: String,
     pub(crate) references: Vec<Reference<'a>>,
@@ -62,7 +65,6 @@ pub(crate) struct Context<'a> {
     /// `true` if `previousTag` and `currentTag` are truthy.
     pub(crate) link_compare: bool,
 }
-
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct ContextBase<'a> {
@@ -135,7 +137,7 @@ impl<W: io::Write> ChangelogWriter<W> {
         handlebars.register_escape_fn(no_escape);
 
         if let Some(path) = template {
-            handlebars.register_templates_directory(".hbs", dbg!(path))?;
+            handlebars.register_templates_directory(".hbs", path)?;
         } else {
             handlebars.register_template_string("template", TEMPLATE)?;
             handlebars.register_partial("header", HEADER)?;

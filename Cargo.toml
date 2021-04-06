@@ -10,22 +10,25 @@ repository = "https://github.com/ttys3/git-cz.git"
 license = "MIT"
 authors = ["Hannes De Valkeneer <hannes@de-valkeneer.be>"]
 edition = "2018"
-exclude = [
-    ".*",
+include = [
+    "build.rs",
+    "src/*",
+    "README.md",
+    "LICENSE"
 ]
 
 [dependencies]
 chrono = { version = "0.4.19", features = ["serde"] }
-git2 = { version = "0.13.17", default-features = false, features = [] }
-handlebars = { version = "3.5.2", features = [ "dir_source" ] }
-regex = "1.4.3"
-semver = { version = "0.10.0", features = ["serde"] }
-serde = { version = "1.0.119", features = ["derive"] }
-serde_yaml = "0.8.15"
+git2 = { version = "0.13.17", default-features = false, features = [ "zlib-ng-compat" ] }
+handlebars = { version = "3.5.3", features = [ "dir_source" ] }
+regex = "1.4.4"
+semver = "0.11.0"
+serde = { version = "1.0.124", features = ["derive"] }
+serde_yaml = "0.8.17"
 structopt = "0.3.21"
-url = "2.2.0"
+url = "2.2.1"
 dialoguer = "0.7.3"
-thiserror = "1.0.23"
+thiserror = "1.0.24"
 skim = "0.9.3"
 console = "0.15.0"
 
