@@ -7,8 +7,7 @@ use crate::{
     conventional::{config::Type, CommitParser, Config},
     Command, Error,
 };
-use regex::Regex;
-use std::process::{self, ExitStatus};
+
 extern crate skim;
 use skim::prelude::*;
 use std::io::Cursor;
