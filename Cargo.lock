@@ -361,7 +361,7 @@ dependencies = [
 [[package]]
 name = "dialoguer"
 version = "0.8.0"
-source = "git+https://github.com/ttys3/dialoguer.git#7ebaf559bce3d9097a39090326fb76207690c523"
+source = "git+https://github.com/ttys3/dialoguer.git?branch=fuzzy#8a84650f11b2a92de19814dada41398f32449792"
 dependencies = [
  "console",
  "fuzzy-matcher",
@@ -539,7 +539,7 @@ dependencies = [
 
 [[package]]
 name = "git-cz"
-version = "0.7.1"
+version = "0.7.2"
 dependencies = [
  "chrono",
  "console",
@@ -1550,9 +1550,9 @@ checksum = "56dee185309b50d1f11bfedef0fe6d036842e3fb77413abef29f8f8d1c5d4c1c"
 
 [[package]]
 name = "unicode-bidi"
-version = "0.3.4"
+version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49f2bd0c6468a8230e1db229cff8029217cf623c767ea5d60bfbd42729ea54d5"
+checksum = "eeb8be209bb1c96b7c177c7420d26e04eccacb0eeae6b980e35fcb74678107e0"
 dependencies = [
  "matches",
 ]

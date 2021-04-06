@@ -1,6 +1,6 @@
 [package]
 name = "git-cz"
-version = "0.7.1"
+version = "0.7.2"
 description = "Git conventional commit tools written in Rust"
 keywords = ["git", "conventional", "commit", "changelog", "semantic"]
 categories = ["development-tools::build-utils"]
@@ -30,7 +30,8 @@ structopt = "0.3.21"
 url = "2.2.1"
 thiserror = "1.0.24"
 console = "0.14.1"
-dialoguer = { version = "0.8.0", features = [ "fuzzy-select" ] }
+#dialoguer = { version = "0.8.0", features = [ "fuzzy-select" ] }
+dialoguer = { version = "0.8.0", features = [] }
 
 [target.'cfg(unix)'.dependencies]
 skim = { version = "0.9.3" }
@@ -56,7 +57,8 @@ assets = [
 
 [patch.crates-io]
 # console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
-dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.8.0" }
+# dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.8.0" }
+dialoguer = { git = "https://github.com/ttys3/dialoguer.git", branch = "fuzzy" }
 
 # local path for dev
 # dialoguer = { path = "../lib/dialoguer" }
