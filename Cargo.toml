@@ -27,10 +27,10 @@ serde = { version = "1.0.124", features = ["derive"] }
 serde_yaml = "0.8.17"
 structopt = "0.3.21"
 url = "2.2.1"
-dialoguer = "0.7.3"
+dialoguer = "0.8.0"
 thiserror = "1.0.24"
 skim = "0.9.3"
-console = "0.15.0"
+console = "0.14.1"
 
 [build-dependencies]
 structopt = "0.3.21"
@@ -54,5 +54,5 @@ assets = [
 [patch.crates-io]
 # dialoguer = { path = "../../lib/dialoguer" }
 # console = { path = "../../lib/console" }
-console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
-dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.7.3" }
+# console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
+dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.8.0" }
