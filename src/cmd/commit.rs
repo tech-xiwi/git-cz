@@ -8,9 +8,15 @@ use crate::{
     Command, Error,
 };
 
+#[cfg(target_family = "unix")]
 extern crate skim;
+#[cfg(target_family = "unix")]
 use skim::prelude::*;
+#[cfg(target_family = "unix")]
 use std::io::Cursor;
+
+#[cfg(not(target_family = "unix"))]
+use dialoguer::{theme::ColorfulTheme, FuzzySelect};
 
 fn read_single_line(
     theme: &impl dialoguer::theme::Theme,
@@ -160,41 +166,66 @@ impl Dialog {
         selected: &str,
         types: &[Type],
     ) -> Result<String, Error> {
-        let mut input = String::new();
-        for c in types {
-            input.push_str(&c.r#type);
-            input.push('\n');
-        }
-
-        // `SkimItemReader` is a helper to turn any `BufRead` into a stream of `SkimItem`
-        // `SkimItem` was implemented for `AsRef<str>` by default
-        let item_reader = SkimItemReader::default();
-        let items = item_reader.of_bufread(Cursor::new(input));
-
-        // use dialoguer::theme::ColorfulTheme;
-        // let mut header : String = "type: ".to_owned();
-        // header.push_str(ColorfulTheme::default().active_item_prefix.to_string().as_str());
-        // .header(Some(header.as_str()))
-        let options = SkimOptionsBuilder::default()
-            .min_height(Some("10"))
-            .prompt(Some("? type () › "))
-            .height(Some("25%"))
-            .multi(false)
-            .reverse(true)
-            .build()
-            .unwrap();
-        // `run_with` would read and show items from the stream
-        let selected_items = Skim::run_with(&options, Some(items))
-            .map(|out| out.selected_items)
-            .unwrap_or_default();
-
         let mut sel: String = "".to_string();
 
-        if !selected_items.is_empty() {
-            let item = selected_items.get(0).unwrap();
-            sel = item.output().to_string();
-        } else if !selected.is_empty() {
-            sel = selected.to_string();
+        #[cfg(target_family = "unix")]
+        {
+            // `SkimItemReader` is a helper to turn any `BufRead` into a stream of `SkimItem`
+            // `SkimItem` was implemented for `AsRef<str>` by default
+            let item_reader = SkimItemReader::default();
+
+            let mut input = String::new();
+            for c in types {
+                input.push_str(&c.r#type);
+                input.push('\n');
+            }
+            let items = item_reader.of_bufread(Cursor::new(input));
+
+            // use dialoguer::theme::ColorfulTheme;
+            // let mut header : String = "type: ".to_owned();
+            // header.push_str(ColorfulTheme::default().active_item_prefix.to_string().as_str());
+            // .header(Some(header.as_str()))
+            let options = SkimOptionsBuilder::default()
+                .min_height(Some("10"))
+                .prompt(Some("? type () › "))
+                .height(Some("25%"))
+                .multi(false)
+                .reverse(true)
+                .build()
+                .unwrap();
+            // `run_with` would read and show items from the stream
+            let selected_items = Skim::run_with(&options, Some(items))
+                .map(|out| out.selected_items)
+                .unwrap_or_default();
+
+            if !selected_items.is_empty() {
+                let item = selected_items.get(0).unwrap();
+                sel = item.output().to_string();
+            } else if !selected.is_empty() {
+                sel = selected.to_string();
+            }
+        }
+
+        #[cfg(not(target_family = "unix"))]
+        {
+            // windows
+            let mut selections: Vec<&str> = Vec::new();
+            for c in types {
+                selections.push(&c.r#type);
+            }
+
+            let selected_item = FuzzySelect::with_theme(&ColorfulTheme::default())
+                .with_prompt("Pick your flavor")
+                .default(0)
+                .items(&selections[..])
+                .interact()
+                .unwrap();
+
+            if !selected_item.is_empty() {
+                sel = selected_item;
+            } else if !selected.is_empty() {
+                sel = selected.to_string();
+            }
         }
 
         if sel.is_empty() {

@@ -19,7 +19,8 @@ include = [
 
 [dependencies]
 chrono = { version = "0.4.19", features = ["serde"] }
-git2 = { version = "0.13.17", default-features = false, features = [ "zlib-ng-compat" ] }
+# if enable zlib-ng feature, openssl-sys is required and will result in failure for darwin
+git2 = { version = "0.13.17", default-features = false, features = [] }
 handlebars = { version = "3.5.3", features = [ "dir_source" ] }
 regex = "1.4.4"
 semver = "0.11.0"
@@ -27,10 +28,12 @@ serde = { version = "1.0.124", features = ["derive"] }
 serde_yaml = "0.8.17"
 structopt = "0.3.21"
 url = "2.2.1"
-dialoguer = "0.8.0"
 thiserror = "1.0.24"
-skim = "0.9.3"
 console = "0.14.1"
+dialoguer = { version = "0.8.0", features = [ "fuzzy-select" ] }
+
+[target.'cfg(unix)'.dependencies]
+skim = { version = "0.9.3" }
 
 [build-dependencies]
 structopt = "0.3.21"
@@ -52,7 +55,10 @@ assets = [
 ]
 
 [patch.crates-io]
-# dialoguer = { path = "../../lib/dialoguer" }
-# console = { path = "../../lib/console" }
 # console = { git = "https://github.com/ttys3/console.git", version = "0.15.0" }
 dialoguer = { git = "https://github.com/ttys3/dialoguer.git", version = "0.8.0" }
+
+# local path for dev
+# dialoguer = { path = "../lib/dialoguer" }
+# console = { path = "../lib/console" }
+

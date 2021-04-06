@@ -17,6 +17,9 @@ darwin:
 	PATH=/usr/local/darwin-ndk-x86_64/bin:$$PATH \
 		 cargo build --target=x86_64-apple-darwin --release
 
+windows:
+	cargo build --release --target x86_64-pc-windows-gnu
+
 static:
 	cargo build --release --target x86_64-unknown-linux-musl
 
